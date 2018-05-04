@@ -26,6 +26,16 @@ module.exports = function loader(source, map) {
         for (const property of node.right.properties) {
           // The key can be an identifier or a string literal
           const key = property.type === 'Indentifier' ? property.key.name : property.key.value;
+
+          /*
+           * Depending on the configuration, css-loader might not remove the original non-camelcased keys.
+           * Filter out keys with dashes since they aren't valid in TS identifiers.
+           * https://github.com/webpack-contrib/css-loader#camelcase
+           */
+          if (/-\w/.test(key)) {
+            continue;
+          }
+
           exportedValues[key] = true;
         }
       }
