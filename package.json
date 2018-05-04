@@ -1,0 +1,19 @@
+{
+  "name": "ts-css-modules-definitions-loader",
+  "version": "1.0.0",
+  "description": "Webpack loader that generates TypeScript definition files for CSS Modules",
+  "main": "index.js",
+  "scripts": {},
+  "author": "Kai Cataldo <kaicataldo@gmail.com>",
+  "license": "MIT",
+  "peerDependencies": {
+    "acorn": "^5.0.0",
+    "css-loader": "^0.28.0",
+    "webpack": "^4.0.0"
+  },
+  "devDependencies": {
+    "acorn": "^5.0.0",
+    "css-loader": "^0.28.0",
+    "webpack": "^4.0.0"
+  }
+}
