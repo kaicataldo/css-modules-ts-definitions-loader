@@ -20,12 +20,18 @@ module.exports = function loader(source, map) {
 
   walk.simple(ast, {
     AssignmentExpression(node) {
-      const isValuesExport = node.left.type === 'MemberExpression' && node.left.object.name === 'exports' && node.left.property.name === 'locals';
+      const isValuesExport =
+        node.left.type === 'MemberExpression' &&
+        node.left.object.name === 'exports' &&
+        node.left.property.name === 'locals';
 
       if (isValuesExport && node.right.type === 'ObjectExpression') {
         for (const property of node.right.properties) {
           // The key can be an identifier or a string literal
-          const key = property.type === 'Indentifier' ? property.key.name : property.key.value;
+          const key =
+            property.type === 'Indentifier'
+              ? property.key.name
+              : property.key.value;
 
           /*
            * Depending on the configuration, css-loader might not remove the original non-camelcased keys.
@@ -45,7 +51,9 @@ module.exports = function loader(source, map) {
   const { dir, base } = path.parse(this.resourcePath);
   const definitionBase = `${base}.d.ts`;
   const definitionPath = path.join(dir, definitionBase);
-  const definitionSource = `${Object.keys(exportedValues).map(val => `export const ${val}: string;`).join(os.EOL)}${os.EOL}`
+  const definitionSource = `${Object.keys(exportedValues)
+    .map(val => `export const ${val}: string;`)
+    .join(os.EOL)}${os.EOL}`;
 
   this.addDependency(definitionPath);
 
@@ -84,9 +92,8 @@ module.exports = function loader(source, map) {
 
         successCb();
       });
-    }
-    else {
+    } else {
       updateDefinitionFile();
     }
-  })
+  });
 };

@@ -3,9 +3,22 @@
   "version": "1.0.0",
   "description": "Webpack loader that generates TypeScript definition files for CSS Modules",
   "main": "index.js",
-  "scripts": {},
   "author": "Kai Cataldo <kaicataldo@gmail.com>",
   "license": "MIT",
+  "engines": {
+    "node": ">=6"
+  },
+  "scripts": {
+    "precommit": "lint-staged",
+    "eslint": "eslint .",
+    "prettier": "prettier --write '*.js'"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "git add"
+    ]
+  },
   "peerDependencies": {
     "acorn": "^5.0.0",
     "css-loader": "^0.28.0",
@@ -14,6 +27,12 @@
   "devDependencies": {
     "acorn": "^5.0.0",
     "css-loader": "^0.28.0",
+    "eslint": "^4.19.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-node": "^6.0.1",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.0.5",
+    "prettier": "^1.12.1",
     "webpack": "^4.0.0"
   }
 }
