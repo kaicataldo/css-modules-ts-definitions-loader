@@ -4,19 +4,9 @@ const os = require('os');
 const acorn = require('acorn');
 const walk = require('acorn/dist/walk');
 
-module.exports = function loader(source, map) {
-  const callback = this.async();
-
-  function errCb(err) {
-    callback(err);
-  }
-
-  function successCb() {
-    callback(null, source, map);
-  }
-
-  const ast = acorn.parse(source, { sourceType: 'module' });
+function extractExports(source) {
   const exportedValues = {};
+  const ast = acorn.parse(source, { sourceType: 'module' });
 
   walk.simple(ast, {
     AssignmentExpression(node) {
@@ -48,52 +38,64 @@ module.exports = function loader(source, map) {
     }
   });
 
+  return exportedValues;
+}
+
+module.exports = function loader(source, map) {
+  const callback = this.async();
+
   const { dir, base } = path.parse(this.resourcePath);
-  const definitionBase = `${base}.d.ts`;
-  const definitionPath = path.join(dir, definitionBase);
-  const definitionSource = `${Object.keys(exportedValues)
-    .map(val => `export const ${val}: string;`)
-    .join(os.EOL)}${os.EOL}`;
+  const definitionPath = path.join(dir, `${base}.d.ts`);
 
   this.addDependency(definitionPath);
 
+  const exportedValues = extractExports(source);
+  const hasExports = Object.keys(exportedValues).length;
+  const definitionSource = hasExports
+    ? `${Object.keys(exportedValues)
+        .map(val => `export const ${val}: string;`)
+        .join(os.EOL)}${os.EOL}`
+    : // TS will treat this as a module when no exported values exist
+      `declare let emptyCSSModule: void;${
+        os.EOL
+      }export default emptyCSSModule;`;
+
   fs.stat(definitionPath, (err, stats) => {
     if (err && err.code !== 'ENOENT') {
-      return errCb(err);
+      return callback(err);
     }
 
-    const fileExists = stats && stats.isFile();
-
-    function updateDefinitionFile() {
-      function fileChangeCb(err) {
-        if (err) {
-          return errCb(err);
-        }
-
-        successCb();
-      }
-
-      if (fileExists && !Object.keys(exportedValues).length) {
-        return fs.unlink(definitionPath, fileChangeCb);
-      }
-
-      fs.writeFile(definitionPath, definitionSource, 'utf-8', fileChangeCb);
-    }
-
-    if (fileExists) {
+    if (stats && stats.isFile()) {
       fs.readFile(definitionPath, 'utf-8', (err, content) => {
         if (err) {
-          return errCb(err);
+          return callback(err);
         }
 
         if (definitionSource !== content) {
-          return updateDefinitionFile();
+          return fs.writeFile(
+            definitionPath,
+            definitionSource,
+            'utf-8',
+            err => {
+              if (err) {
+                return callback(err);
+              }
+
+              callback(null, source, map);
+            }
+          );
         }
 
-        successCb();
+        callback(null, source, map);
       });
     } else {
-      updateDefinitionFile();
+      fs.writeFile(definitionPath, definitionSource, 'utf-8', err => {
+        if (err) {
+          return callback(err);
+        }
+
+        callback(null, source, map);
+      });
     }
   });
 };
