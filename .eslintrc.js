@@ -8,5 +8,8 @@ module.exports = {
     node: true
   },
   plugins: ['node'],
-  extends: ['eslint:recommended', 'plugin:node/recommended', 'prettier']
+  extends: ['eslint:recommended', 'plugin:node/recommended', 'prettier'],
+  rules: {
+    'node/no-unpublished-require': 'off'
+  }
 };

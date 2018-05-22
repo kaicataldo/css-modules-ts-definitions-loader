@@ -58,7 +58,7 @@ module.exports = function loader(source, map) {
     : // TS will treat this as a module when no exported values exist
       `declare let emptyCSSModule: void;${
         os.EOL
-      }export default emptyCSSModule;`;
+      }export default emptyCSSModule;${os.EOL}`;
 
   fs.stat(definitionPath, (err, stats) => {
     if (err && err.code !== 'ENOENT') {

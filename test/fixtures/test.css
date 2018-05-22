@@ -1,0 +1,9 @@
+@value foo: red;
+
+.bar {
+  width: 100%;
+}
+
+.baz-qux {
+  color: foo;
+}

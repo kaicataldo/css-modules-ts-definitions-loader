@@ -11,7 +11,9 @@
   "scripts": {
     "precommit": "lint-staged",
     "eslint": "eslint .",
-    "prettier": "prettier --write '*.js'"
+    "prettier": "prettier --write '*.js'",
+    "test": "npm run eslint && jest",
+    "dev": "jest --watch"
   },
   "lint-staged": {
     "*.js": [
@@ -26,12 +28,15 @@
   },
   "devDependencies": {
     "acorn": "^5.0.0",
-    "css-loader": "^0.28.0",
+    "css-loader": "^0.28.11",
+    "del": "^3.0.0",
     "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-node": "^6.0.1",
     "husky": "^0.14.3",
+    "jest": "^22.4.4",
     "lint-staged": "^7.0.5",
+    "memory-fs": "^0.4.1",
     "prettier": "^1.12.1",
     "webpack": "^4.0.0"
   }
