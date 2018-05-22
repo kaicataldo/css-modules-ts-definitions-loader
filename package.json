@@ -8,6 +8,11 @@
   "engines": {
     "node": ">=6"
   },
+  "files": [
+    "LICENSE.md",
+    "README.md",
+    "index.js"
+  ],
   "scripts": {
     "precommit": "lint-staged",
     "eslint": "eslint .",
@@ -22,12 +27,13 @@
     ]
   },
   "peerDependencies": {
-    "acorn": "^5.0.0",
     "css-loader": "^0.28.0",
     "webpack": "^4.0.0"
   },
+  "dependencies": {
+    "acorn": "^5.0.0"
+  },
   "devDependencies": {
-    "acorn": "^5.0.0",
     "css-loader": "^0.28.11",
     "del": "^3.0.0",
     "eslint": "^4.19.1",
