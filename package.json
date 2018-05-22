@@ -31,7 +31,8 @@
     "webpack": "^4.0.0"
   },
   "dependencies": {
-    "acorn": "^5.0.0"
+    "acorn": "^5.0.0",
+    "esutils": "^2.0.2"
   },
   "devDependencies": {
     "css-loader": "^0.28.11",

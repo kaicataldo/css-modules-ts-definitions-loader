@@ -59,7 +59,7 @@ test('should generate type definition file', () => {
   return testFixture('test.css');
 });
 
-test('should filter out non-camel case class names', () => {
+test('should filter out invalid (including non-camel case) identifier names', () => {
   return testFixture('test2.css', { camelCase: false });
 });
 
@@ -67,7 +67,11 @@ test('should generate type definition file for empty CSS module', () => {
   return testFixture('test3.css');
 });
 
-test('should pass through output of CSS Loader without transforming it', function() {
+test('should filter out reserved keywords', () => {
+  return testFixture('test4.css');
+});
+
+test('should pass through output of CSS Loader without transforming it', () => {
   return Promise.all(
     fixtureFiles.map(fixturePath => {
       const outputDirFixturePath = path.join(OUTPUT_DIR, fixturePath);

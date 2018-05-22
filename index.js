@@ -3,6 +3,7 @@ const fs = require('fs');
 const os = require('os');
 const acorn = require('acorn');
 const walk = require('acorn/dist/walk');
+const esutils = require('esutils');
 
 function extractExports(source) {
   const exportedValues = {};
@@ -23,12 +24,14 @@ function extractExports(source) {
               ? property.key.name
               : property.key.value;
 
-          /*
-           * Depending on the configuration, css-loader might not remove the original non-camelcased keys.
-           * Filter out keys with dashes since they aren't valid in TS identifiers.
-           * https://github.com/webpack-contrib/css-loader#camelcase
-           */
-          if (/-\w/.test(key)) {
+          // Filter out invalid identifiers. Depending on the configuration, css-loader might not remove the original non-camelcased keys.
+          // https://github.com/webpack-contrib/css-loader#camelcase
+          if (!esutils.keyword.isIdentifierNameES6(key)) {
+            continue;
+          }
+
+          // Filter out reserved keywords
+          if (esutils.keyword.isReservedWordES6(key, true)) {
             continue;
           }
 
@@ -55,7 +58,7 @@ module.exports = function loader(source, map) {
     ? `${Object.keys(exportedValues)
         .map(val => `export const ${val}: string;`)
         .join(os.EOL)}${os.EOL}`
-    : // TS will treat this as a module when no exported values exist
+    : // TS will treat this as a module when imported as * and no exported values exist
       `declare let emptyCSSModule: void;${
         os.EOL
       }export default emptyCSSModule;${os.EOL}`;

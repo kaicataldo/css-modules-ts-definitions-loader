@@ -1,0 +1,16 @@
+@value foo: red;
+@value default: blue;
+
+.new {
+  width: 100%;
+}
+
+.bar {
+  color: foo;
+}
+
+.baz {
+  color: default;
+}
+
+
