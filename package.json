@@ -16,7 +16,7 @@
   "scripts": {
     "precommit": "lint-staged",
     "eslint": "eslint .",
-    "prettier": "prettier --write '*.js'",
+    "prettier": "prettier --write '**/*.js'",
     "test": "npm run eslint && jest",
     "dev": "jest --watch"
   },
