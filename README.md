@@ -1,4 +1,6 @@
-[![Build Status](https://travis-ci.org/kaicataldo/css-modules-ts-definitions-loader.svg?branch=master)](https://travis-ci.org/kaicataldo/css-modules-ts-definitions-loader)
+[![Travis](https://img.shields.io/travis/kaicataldo/css-modules-ts-definitions-loader.svg?style=flat-square)](https://travis-ci.org/kaicataldo/css-modules-ts-definitions-loader)
+[![npm](https://img.shields.io/npm/v/css-modules-ts-definitions-loader.svg?style=flat-square)](https://www.npmjs.com/package/css-modules-ts-definitions-loader/)
+[![node](https://img.shields.io/node/v/css-modules-ts-definitions-loader.svg?style=flat-square)](https://nodejs.org/en/)
 
 # css-modules-ts-definitions-loader
 
