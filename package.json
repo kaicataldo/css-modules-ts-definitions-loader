@@ -2,12 +2,24 @@
   "name": "css-modules-ts-definitions-loader",
   "version": "1.0.0",
   "description": "Webpack loader that generates TypeScript definition files for CSS Modules",
-  "main": "index.js",
   "author": "Kai Cataldo <kaicataldo@gmail.com>",
   "license": "MIT",
+  "repository": "kaicataldo/css-modules-ts-definitions-loader",
+  "homepage": "https://github.com/kaicataldo/css-modules-ts-definitions-loader#readme",
+  "bugs": "https://github.com/kaicataldo/css-modules-ts-definitions-loader/issues",
+  "keywords": [
+    "css modules",
+    "typescript",
+    "typings",
+    "types",
+    "definition",
+    "webpack",
+    "loader"
+  ],
   "engines": {
     "node": ">=6"
   },
+  "main": "index.js",
   "files": [
     "LICENSE.md",
     "README.md",
