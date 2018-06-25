@@ -13,5 +13,13 @@ module.exports = {
   rules: {
     strict: 'error',
     'node/no-unpublished-require': 'off'
-  }
+  },
+  overrides: [
+    {
+      files: 'test/**/*.js',
+      env: {
+        jest: true
+      }
+    }
+  ]
 };
