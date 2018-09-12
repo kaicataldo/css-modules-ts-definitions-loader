@@ -22,7 +22,7 @@ function extractExports(source) {
         for (const property of node.right.properties) {
           // The key can be an identifier or a string literal
           const key =
-            property.type === 'Indentifier'
+            property.type === 'Identifier'
               ? property.key.name
               : property.key.value;
 
