@@ -7,6 +7,7 @@
   "repository": "kaicataldo/css-modules-ts-definitions-loader",
   "homepage": "https://github.com/kaicataldo/css-modules-ts-definitions-loader#readme",
   "bugs": "https://github.com/kaicataldo/css-modules-ts-definitions-loader/issues",
+  "funding": "https://github.com/sponsors/kaicataldo",
   "keywords": [
     "css modules",
     "typescript",
